@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:id="@+id/errorView"
+    android:background="@color/error_back"
+     >
+     <include layout="@layout/toolbar"/>
+     <RelativeLayout 
+         android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:clickable="false"
+         >
+    <ImageView
+            android:id="@+id/error_image"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="130dp"
+            android:src="@drawable/error"
+            android:clickable="false"
+             />
+<TextView 
+    android:id="@+id/exclaim"
+    android:textSize="29sp"
+    android:layout_toRightOf="@+id/error_image"
+    android:text="Aw Snap!"
+    android:layout_marginTop="150dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@android:color/black"
+    android:layout_marginLeft="1dp"
+    android:layout_marginBottom="10dp"
+    android:gravity="center_horizontal"
+    android:clickable="false"
+    />    
+    </RelativeLayout>
+<TextView 
+    android:id="@+id/error"
+    android:text="No Internet Access"
+    android:textSize="21sp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@android:color/black"
+    />
+<TextView 
+    android:id="@+id/click"
+    android:text="Click Anywhere to reload"
+    android:textSize="21sp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@android:color/black"
+    android:layout_marginBottom="10dp"
+    />
+</LinearLayout>
