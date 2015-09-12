@@ -47,13 +47,10 @@ public class SplashActivity extends BaseActivity {
 	    if(p == 2) {
     	    JSONArray rooms = data.getRooms();
             JSONObject scheduleList = data.getScheduleList();
-            Log.d("abhishek", "");
             if(rooms != null && scheduleList != null) {
                 startScheduleActivity();
-                Log.d("abhishek", "1");
             } else {
                 showNoNetworkActivity();
-                Log.d("abhishek", "2");
             }
 	    }
     }

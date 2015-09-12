@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout 
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/img"
+        >
+        
+        <ImageView 
+            android:id="@+id/audiImg"
+            android:layout_centerInParent="true"
+            android:layout_width="15dp"
+            android:layout_alignParentTop="true" 
+            android:layout_height="15dp"
+            android:src="@drawable/pycon_audi_1"
+        />
+        <TextView 
+            android:id="@+id/audiText"
+            android:layout_below="@+id/audiImg"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/audi"
+            android:textSize="10sp"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/black"
+            />
+        
+            <ImageView 
+                android:id="@+id/like"
+                android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+                 android:layout_below="@+id/audiText"
+                android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="15dp"
+                android:src="@drawable/pycon_favorite"
+                />
+            <ImageView 
+                android:id="@+id/feedback"
+                android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+                android:layout_below="@+id/audiText"
+                android:layout_width="15dp"
+                android:layout_toRightOf="@+id/like"
+            android:layout_height="15dp"
+                android:src="@drawable/pycon_feedback"
+                />
+    </RelativeLayout>
+       
+        
+
+        <TextView 
+            android:id="@+id/title"
+            android:layout_alignParentTop="true" 
+            android:layout_toRightOf="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Some title"
+            android:maxLines="2"
+            android:textSize="12sp"
+            android:textColor="@android:color/black"
+            />
+        <TextView 
+            android:id="@+id/desc"
+            android:layout_below="@+id/title"
+            android:layout_toRightOf="@+id/img"
+            android:layout_width="match_parent"
+            android:maxLines="4"
+            android:textSize="10sp"
+            
+            android:layout_height="wrap_content"
+            android:textColor="@color/descTextColor"
+            />
+</RelativeLayout>
