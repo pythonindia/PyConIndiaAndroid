@@ -25,6 +25,9 @@
         <activity android:name="com.pyconindia.pycon.BaseActivity" >
             
         </activity>
+        <activity android:name="com.pyconindia.pycon.DetailsActivity" >
+            
+        </activity>
         <activity android:name="com.pyconindia.pycon.NoNetworkActivity" >
             
         </activity>

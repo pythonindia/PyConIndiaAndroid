@@ -25,6 +25,7 @@
             android:layout_height="20dp"
             android:text="@string/audi"
             android:textSize="10sp"
+            android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
             android:textColor="@android:color/black"
             />

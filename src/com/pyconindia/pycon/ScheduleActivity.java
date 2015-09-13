@@ -52,11 +52,7 @@ public class ScheduleActivity extends BaseActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         data = new ApplicationData(ScheduleActivity.this);
 
-
-
         scheduleList = new ArrayList<ScheduleItem>();
-
-
 
         ArrayList<ListView> lists = new ArrayList<ListView>();
         ListView listview1 = new ListView(this);
@@ -140,9 +136,6 @@ public class ScheduleActivity extends BaseActivity {
                     like = likes.has(""+sessionId) ? likes.getBoolean(""+sessionId) : false;
                     feedback = feedbackObj.has(""+sessionId) ? feedbackObj.getBoolean(""+sessionId) : false;
                     description = talkObj.getJSONObject("session").getString("description");
-                    description = description.replaceAll("\r\n\r\n", " ");
-                    description = description.replaceAll("#", "");
-                    description = description.replace("*", " ");
                     roomId = talkObj.getInt("room_id");
                     Talk talk = new Talk(sessionId, name.toUpperCase(), description, roomId, like, feedback);
                     talkList.add(talk);
@@ -155,7 +148,6 @@ public class ScheduleActivity extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -192,11 +184,7 @@ public class ScheduleActivity extends BaseActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             ListView page = pages.get(position);
-            Log.d("abhishek", ""+page.getAdapter().getCount());
             container.addView(page);
-
-
-
             return page;
         }
 

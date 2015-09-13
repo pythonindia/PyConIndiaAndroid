@@ -8,10 +8,15 @@ public class Talk implements Comparable<Talk> {
     private boolean liked;
     private boolean feedbackGiven;
     private int sessionId;
+    private String markdown;
 
     public Talk(int sessionId, String title, String description, int audiNo, boolean liked, boolean feedbackGiven) {
         this.sessionId = sessionId;
         this.title = title;
+        this.markdown = description;
+        description = description.replaceAll("\r\n\r\n", " ");
+        description = description.replaceAll("#", "");
+        description = description.replace("*", " ");
         this.description = description;
         this.audiNo = audiNo;
         this.liked = liked;
@@ -69,5 +74,13 @@ public class Talk implements Comparable<Talk> {
 
     public void setSessionId(int sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public String getMarkdown() {
+        return markdown;
+    }
+
+    public void setMarkdown(String markdown) {
+        this.markdown = markdown;
     }
 }

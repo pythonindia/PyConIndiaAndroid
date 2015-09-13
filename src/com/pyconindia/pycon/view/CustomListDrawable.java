@@ -18,10 +18,10 @@ public class CustomListDrawable extends View {
     private RectF rect;
     private static final int PADDING_LEFT = 20;
     private static final int PADDING_RIGHT = 10;
-    private static final int PADDING_TOP = 2;
+    private static final int PADDING_TOP = 20;
     private static final int PADDING_BOTTOM = 2;
     private static final int MARGIN_TOP = 2;
-    private static final int FIX = 7;
+    private static final int FIX = 8;
 
     public CustomListDrawable(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -41,7 +41,7 @@ public class CustomListDrawable extends View {
         int w = getWidth();
         float left = PADDING_LEFT + FIX;
         float right = left + 15;
-        float top = PADDING_TOP + h/10;
+        float top = h/10 + 20;
         float bottom = h - PADDING_BOTTOM;
         float radius = (15);
         float cx = PADDING_LEFT + radius;
