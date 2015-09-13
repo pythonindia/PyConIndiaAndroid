@@ -3,6 +3,6 @@
     <color name="error_back">#ffedecec</color>
     <color name="colorPrimary">#3CB2C0</color>
     <color name="colorPrimaryDark">#3194A0</color>
-    <color name="descTextColor">#545454</color>
+    <color name="descTextColor">#646464</color>
     <color name="backColor">#eeeeee</color>
 </resources>

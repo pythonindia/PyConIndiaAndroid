@@ -1,14 +1,16 @@
 package com.pyconindia.pycon.models;
 
-public class Talk {
+public class Talk implements Comparable<Talk> {
 
     private String title;
     private String description;
     private int audiNo;
     private boolean liked;
     private boolean feedbackGiven;
+    private int sessionId;
 
-    public Talk(String title, String description, int audiNo, boolean liked, boolean feedbackGiven) {
+    public Talk(int sessionId, String title, String description, int audiNo, boolean liked, boolean feedbackGiven) {
+        this.sessionId = sessionId;
         this.title = title;
         this.description = description;
         this.audiNo = audiNo;
@@ -54,5 +56,18 @@ public class Talk {
 
     public void setFeedbackGiven(boolean feedbackGiven) {
         this.feedbackGiven = feedbackGiven;
+    }
+
+    @Override
+    public int compareTo(Talk another) {
+        return this.audiNo - another.audiNo;
+    }
+
+    public int getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
     }
 }

@@ -14,11 +14,11 @@ public class ScheduleItem {
         this.setTalkList(talkList);
     }
 
-    public String getTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setTime(String time) {
+    public void setStarTime(String time) {
         this.startTime = time;
     }
 
@@ -37,4 +37,6 @@ public class ScheduleItem {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
+
+
 }

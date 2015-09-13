@@ -23,8 +23,14 @@ public class SplashActivity extends BaseActivity {
 		setContentView(R.layout.activity_splash);
 		Api api = new Api(this);
 		data = new ApplicationData(this);
-		api.getSchedulesList();
-		api.getRooms();
+        JSONObject scheduleList = data.getScheduleList();
+        if(scheduleList != null) {
+            startScheduleActivity();
+        } else {
+            api.getSchedulesList();
+            api.getRooms();
+        }
+
 	}
 
 	@Override

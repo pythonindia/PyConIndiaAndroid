@@ -1,6 +1,10 @@
 package com.pyconindia.pycon;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 
 import org.json.JSONArray;
@@ -11,6 +15,7 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,11 +77,11 @@ public class ScheduleActivity extends BaseActivity {
             }
         });
         scheduleList = getScheduleList(1);
-        listview1.setAdapter(new ScheduleListAdapter<ScheduleItem>(ScheduleActivity.this, R.layout.schedule_list, scheduleList));
+        listview1.setAdapter(new ScheduleListAdapter<ScheduleItem>(ScheduleActivity.this, R.layout.pager_item, scheduleList));
         scheduleList = getScheduleList(0);
-        listview2.setAdapter(new ScheduleListAdapter<ScheduleItem>(ScheduleActivity.this, R.layout.schedule_list, scheduleList));
+        listview2.setAdapter(new ScheduleListAdapter<ScheduleItem>(ScheduleActivity.this, R.layout.pager_item, scheduleList));
         scheduleList = getScheduleList(2);
-        listview3.setAdapter(new ScheduleListAdapter<ScheduleItem>(ScheduleActivity.this, R.layout.schedule_list, scheduleList));
+        listview3.setAdapter(new ScheduleListAdapter<ScheduleItem>(ScheduleActivity.this, R.layout.pager_item, scheduleList));
 	}
 
 	@Override
@@ -122,22 +127,35 @@ public class ScheduleActivity extends BaseActivity {
                     name = talkObj.getString("name");
                     startTime = talkObj.getString("start_time");
                     endTime = talkObj.getString("end_time");
+
+                    SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+                    Date date =  (Date) formatter.parse(startTime);
+                    startTime = new SimpleDateFormat("hh:mm a").format(date);
+
+                    formatter = new SimpleDateFormat("HH:mm:ss");
+                    date =  (Date) formatter.parse(endTime);
+                    endTime = new SimpleDateFormat("hh:mm a").format(date);
+
                     sessionId = talkObj.getJSONObject("session").getInt("id");
                     like = likes.has(""+sessionId) ? likes.getBoolean(""+sessionId) : false;
                     feedback = feedbackObj.has(""+sessionId) ? feedbackObj.getBoolean(""+sessionId) : false;
                     description = talkObj.getJSONObject("session").getString("description");
-                    description.replaceAll("\r\n\r\n", "");
-                    description.replaceAll("##", "");
-                    description.replaceAll("**", "");
+                    description = description.replaceAll("\r\n\r\n", " ");
+                    description = description.replaceAll("#", "");
+                    description = description.replace("*", " ");
                     roomId = talkObj.getInt("room_id");
-                    Talk talk = new Talk(name.toUpperCase(), description, roomId, like, feedback);
+                    Talk talk = new Talk(sessionId, name.toUpperCase(), description, roomId, like, feedback);
                     talkList.add(talk);
                 }
+                Collections.sort(talkList);
                 ScheduleItem item = new ScheduleItem(startTime, endTime, talkList);
                 scheduleList.add(item);
             }
 
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

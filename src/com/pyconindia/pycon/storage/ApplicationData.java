@@ -58,6 +58,16 @@ public class ApplicationData {
 		return sharedPref.getString(key, null);
 	}
 
+	public void setTalkLike(String key, boolean value) {
+	    JSONObject obj = getScheduleLikes();
+	    try {
+            obj.put(key, value);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+	    setScheduleLikes(obj);
+	}
+
 	public void setScheduleLikes(JSONObject likeObj) {
 	    setString(LIKED_LIST, likeObj.toString());
 	}
