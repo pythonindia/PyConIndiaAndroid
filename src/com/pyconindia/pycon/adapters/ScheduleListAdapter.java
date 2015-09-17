@@ -105,7 +105,7 @@ public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<Sc
 
                 @Override
                 public void onClick(View v) {
-                    startDetalsActivity(talk.getTitle(), talk.getMarkdown());
+                    startDetailsActivity(talk.getTitle(), talk.getMarkdown(), talk.getType());
                 }
             });
 
@@ -113,7 +113,7 @@ public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<Sc
 
                 @Override
                 public void onClick(View v) {
-                    startDetalsActivity(talk.getTitle(), talk.getMarkdown());
+                    startDetailsActivity(talk.getTitle(), talk.getMarkdown(), talk.getType());
                 }
             });
 
@@ -127,12 +127,12 @@ public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<Sc
     }
 
 
-    private void startDetalsActivity(String title, String description) {
+    private void startDetailsActivity(String title, String description, String type) {
         Intent intent = new Intent(context, DetailsActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("description", description);
+        intent.putExtra("type", type);
         context.startActivity(intent);
-
     }
 
 }

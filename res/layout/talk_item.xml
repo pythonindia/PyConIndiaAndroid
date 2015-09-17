@@ -80,7 +80,7 @@
             android:layout_toRightOf="@+id/img"
             android:layout_width="match_parent"
             android:maxLines="4"
-            android:textSize="10sp"
+            android:textSize="11sp"
             
             android:layout_height="wrap_content"
             android:textColor="@color/descTextColor"

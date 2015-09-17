@@ -26,8 +26,19 @@
         <activity android:name="com.pyconindia.pycon.BaseActivity" >
             
         </activity>
-        <activity android:name="com.pyconindia.pycon.DetailsActivity" >
-            
+        <activity android:name="com.pyconindia.pycon.FeedbackActivity"
+            android:parentActivityName="com.pyconindia.pycon.DetailsActivity"
+             >
+            <meta-data
+		        android:name="android.support.PARENT_ACTIVITY"
+		        android:value="com.pyconindia.pycon.DetailsActivity" />
+        </activity>
+        <activity android:name="com.pyconindia.pycon.DetailsActivity"
+            android:parentActivityName="com.pyconindia.pycon.ScheduleActivity"
+             >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pyconindia.pycon.ScheduleActivity" />
         </activity>
         <activity android:name="com.pyconindia.pycon.NoNetworkActivity" >
             

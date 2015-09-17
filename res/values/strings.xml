@@ -3,4 +3,6 @@
     <string name="app_name">PyConIndiaAndroid</string>
     <string name="audi">AUDI</string>
     <string name="submit_feedback">Submit Feedback</string>
+    <string name="give_feedback">Give Feedback</string>
+    <string name="comments">Comments</string>
 </resources>

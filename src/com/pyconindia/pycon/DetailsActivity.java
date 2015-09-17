@@ -4,8 +4,10 @@ import java.io.IOException;
 
 import org.markdown4j.Markdown4jProcessor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
@@ -21,6 +23,7 @@ public class DetailsActivity extends BaseActivity {
     private String description;
     private WebView webview;
     private RelativeLayout feedback;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +34,13 @@ public class DetailsActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Detalis");
         getSupportActionBar().setIcon(R.drawable.footerlogo);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         data = new ApplicationData(this);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             title = extras.getString("title");
             description = extras.getString("description");
+            type = extras.getString("type");
         }
 
         feedback = (RelativeLayout) findViewById(R.id.feedback);
@@ -47,10 +51,14 @@ public class DetailsActivity extends BaseActivity {
                 startFeedbackActivity();
             }
         });
+
     }
 
     private void startFeedbackActivity() {
-
+        Intent intent = new Intent(DetailsActivity.this, FeedbackActivity.class);
+        intent.putExtra("type", type);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -72,5 +80,15 @@ public class DetailsActivity extends BaseActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        onBackPressed();
+        return true;
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
 }

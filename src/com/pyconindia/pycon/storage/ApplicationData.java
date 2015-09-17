@@ -16,6 +16,7 @@ public class ApplicationData {
 	private static String LIKED_LIST = "LIKED_LIST";
 	private static String FEEDBACK_LIST = "FEEDBACK_LIST";
 	private static String DEVICE_VERIFIED = "DEVICE_VERIFIED";
+	private static String FEEDBACK_QUESTIONS = "FEEDBACK_QUESTIONS";
 
 	public ApplicationData(Context context) {
 		this.context = context;
@@ -30,12 +31,7 @@ public class ApplicationData {
 	}
 
 	public JSONObject getScheduleList() {
-		String s = getString(SCHEDULES_LIST);
-		try {
-			return s == null ? null : new JSONObject(s);
-		} catch (JSONException e) {
-			return null;
-		}
+		return getJSONObjectFromKey(SCHEDULES_LIST);
 	}
 
 	public JSONArray getRooms() {
@@ -74,12 +70,7 @@ public class ApplicationData {
 	}
 
 	public JSONObject getScheduleLikes() {
-	    String s = getString(LIKED_LIST);
-        try {
-            return s == null ? new JSONObject() : new JSONObject(s);
-        } catch (JSONException e) {
-            return new JSONObject();
-        }
+        return getJSONObjectFromKey(LIKED_LIST);
 	}
 
 	public void setScheduleFeedback(JSONObject likeObj) {
@@ -87,12 +78,7 @@ public class ApplicationData {
     }
 
     public JSONObject getScheduleFeedback() {
-        String s = getString(FEEDBACK_LIST);
-        try {
-            return s == null ? new JSONObject() : new JSONObject(s);
-        } catch (JSONException e) {
-            return new JSONObject();
-        }
+        return getJSONObjectFromKey(FEEDBACK_LIST);
     }
 
     public boolean isDeviceVerified() {
@@ -105,5 +91,22 @@ public class ApplicationData {
 
     public void setDeviceVerified(String verified) {
         setString(DEVICE_VERIFIED, verified);
+    }
+
+    public void setFeedbackQuestions(String feedback) {
+        setString(FEEDBACK_QUESTIONS, feedback);
+    }
+
+    public JSONObject getFeedbackQuestions() {
+        return getJSONObjectFromKey(FEEDBACK_QUESTIONS);
+    }
+
+    private JSONObject getJSONObjectFromKey(String key) {
+        String s = getString(key);
+        try {
+            return s == null ? new JSONObject() : new JSONObject(s);
+        } catch (JSONException e) {
+            return new JSONObject();
+        }
     }
 }

@@ -6,11 +6,12 @@ public class Talk implements Comparable<Talk> {
     private String description;
     private int audiNo;
     private boolean liked;
+    private String type;
     private boolean feedbackGiven;
     private int sessionId;
     private String markdown;
 
-    public Talk(int sessionId, String title, String description, int audiNo, boolean liked, boolean feedbackGiven) {
+    public Talk(int sessionId, String title, String description, String type, int audiNo, boolean liked, boolean feedbackGiven) {
         this.sessionId = sessionId;
         this.title = title;
         this.markdown = description;
@@ -21,6 +22,7 @@ public class Talk implements Comparable<Talk> {
         this.audiNo = audiNo;
         this.liked = liked;
         this.feedbackGiven = feedbackGiven;
+        this.type = type;
     }
 
     public String getTitle() {
@@ -82,5 +84,13 @@ public class Talk implements Comparable<Talk> {
 
     public void setMarkdown(String markdown) {
         this.markdown = markdown;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

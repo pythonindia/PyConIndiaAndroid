@@ -21,6 +21,7 @@ public class Api {
 	public static final String ROOMS_URL = "https://in.pycon.org/cfp/api/v1/rooms/?venue=1";
 	public static final String SCHEDULLES_LIST = "https://in.pycon.org/cfp/api/v1/schedules/?conference=1";
 	public static final String DEVICE_VERIFRY_URL = "https://in.pycon.org/cfp/api/v1/devices/";
+	public static final String FEEDBACK_QUESTION_URL = "https://in.pycon.org/cfp/api/v1/feedback_questions/?conference_id=1";
 
 	private ResponseHandler handler;
 	private Context context;
@@ -30,6 +31,7 @@ public class Api {
 		ROOMS_URL,
 		SCHEDULLES_LIST,
 		DEVICE_VERIFY,
+		FEEDBACK_QUESTION_URL,
 		OTHER
 	}
 
@@ -57,11 +59,16 @@ public class Api {
 	public void verifyDevice(String uuid) {
 	    JSONObject jsonParams = new JSONObject();
 	    try {
+	        Log.d("abhishek", uuid);
             jsonParams.put("uuid", uuid);
             post(DEVICE_VERIFRY_URL, UrlType.DEVICE_VERIFY, jsonParams);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+	}
+
+	public void getFeedbackQuestions() {
+	    get(FEEDBACK_QUESTION_URL, UrlType.FEEDBACK_QUESTION_URL);
 	}
 
 	private void get(String url, final UrlType urlType) {

@@ -51,6 +51,7 @@ public class ScheduleActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("PyCon");
         getSupportActionBar().setIcon(R.drawable.footerlogo);
+
         mViewPager = (ViewPager) findViewById(R.id.pager);
         data = new ApplicationData(ScheduleActivity.this);
 
@@ -74,9 +75,9 @@ public class ScheduleActivity extends BaseActivity {
                 return getResources().getColor(android.R.color.white);
             }
         });
-        scheduleList = getScheduleList(1);
-        listview1.setAdapter(new ScheduleListAdapter<ScheduleItem>(ScheduleActivity.this, R.layout.pager_item, scheduleList));
         scheduleList = getScheduleList(0);
+        listview1.setAdapter(new ScheduleListAdapter<ScheduleItem>(ScheduleActivity.this, R.layout.pager_item, scheduleList));
+        scheduleList = getScheduleList(1);
         listview2.setAdapter(new ScheduleListAdapter<ScheduleItem>(ScheduleActivity.this, R.layout.pager_item, scheduleList));
         scheduleList = getScheduleList(2);
         listview3.setAdapter(new ScheduleListAdapter<ScheduleItem>(ScheduleActivity.this, R.layout.pager_item, scheduleList));
@@ -115,7 +116,7 @@ public class ScheduleActivity extends BaseActivity {
             while (iter2.hasNext()) {
                 String time = iter2.next();
                 JSONArray scheduleListArr = dayObject.getJSONArray(time);
-                String startTime = "", endTime = "", name, description;
+                String startTime = "", endTime = "", name, description, type;
                 int roomId, sessionId;
                 boolean like, feedback;
                 ArrayList<Talk> talkList = new ArrayList<Talk>();
@@ -139,7 +140,8 @@ public class ScheduleActivity extends BaseActivity {
                     feedback = feedbackObj.has(""+sessionId) ? feedbackObj.getBoolean(""+sessionId) : false;
                     description = talkObj.getJSONObject("session").getString("description");
                     roomId = talkObj.getInt("room_id");
-                    Talk talk = new Talk(sessionId, name.toUpperCase(), description, roomId, like, feedback);
+                    type = talkObj.getString("type");
+                    Talk talk = new Talk(sessionId, name.toUpperCase(), description, type, roomId, like, feedback);
                     talkList.add(talk);
                 }
                 Collections.sort(talkList);
