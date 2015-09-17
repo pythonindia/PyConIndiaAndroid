@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    
+        >
+        <include layout="@layout/toolbar"/>
+<ScrollView 
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    <include layout="@layout/toolbar"/>
+    android:layout_height="match_parent"
+    android:layout_below="@+id/toolbar"
+     >
+    <RelativeLayout 
+        android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        >
+    
     <WebView 
         android:id="@+id/description"
         android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
         />
-    <LinearLayout 
+    
+    <View 
+        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/description"
+        android:background="@android:color/white"
+        />
+    </RelativeLayout>
+</ScrollView>
+<RelativeLayout 
+        android:id="@+id/feedback"
         android:layout_width="match_parent"
     android:layout_height="50dp"
     android:orientation="horizontal"
@@ -21,20 +43,21 @@
     android:layout_alignParentBottom="true"
         >
         <ImageView 
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
             android:id="@+id/feedbackIcon"
             android:src="@drawable/submit_feedback"
             />
         <TextView 
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
             android:id="@+id/feedbackText"
             android:textSize="20sp"
+            android:gravity="center"
             android:text="@string/submit_feedback"
             android:textColor="@android:color/white"
             />
-    </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

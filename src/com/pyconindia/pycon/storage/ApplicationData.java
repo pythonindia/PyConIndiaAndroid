@@ -15,6 +15,7 @@ public class ApplicationData {
 	private static String ROOMS_LIST = "ROOMS_LIST";
 	private static String LIKED_LIST = "LIKED_LIST";
 	private static String FEEDBACK_LIST = "FEEDBACK_LIST";
+	private static String DEVICE_VERIFIED = "DEVICE_VERIFIED";
 
 	public ApplicationData(Context context) {
 		this.context = context;
@@ -92,5 +93,17 @@ public class ApplicationData {
         } catch (JSONException e) {
             return new JSONObject();
         }
+    }
+
+    public boolean isDeviceVerified() {
+        String s = getString(DEVICE_VERIFIED);
+        if(s != null && s.equals("1")) {
+            return true;
+        }
+        return false;
+    }
+
+    public void setDeviceVerified(String verified) {
+        setString(DEVICE_VERIFIED, verified);
     }
 }

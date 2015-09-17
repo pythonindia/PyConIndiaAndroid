@@ -49,6 +49,8 @@ public class ScheduleActivity extends BaseActivity {
 		setContentView(R.layout.activity_schedule);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("PyCon");
+        getSupportActionBar().setIcon(R.drawable.footerlogo);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         data = new ApplicationData(ScheduleActivity.this);
 
