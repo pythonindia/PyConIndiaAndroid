@@ -8,11 +8,11 @@ public class Talk implements Comparable<Talk> {
     private boolean liked;
     private String type;
     private boolean feedbackGiven;
-    private int sessionId;
+    private int id;
     private String markdown;
 
-    public Talk(int sessionId, String title, String description, String type, int audiNo, boolean liked, boolean feedbackGiven) {
-        this.sessionId = sessionId;
+    public Talk(int id, String title, String description, String type, int audiNo, boolean liked, boolean feedbackGiven) {
+        this.id = id;
         this.title = title;
         this.markdown = description;
         description = description.replaceAll("\r\n\r\n", " ");
@@ -70,12 +70,12 @@ public class Talk implements Comparable<Talk> {
         return this.audiNo - another.audiNo;
     }
 
-    public int getSessionId() {
-        return sessionId;
+    public int getId() {
+        return id;
     }
 
-    public void setSessionId(int sessionId) {
-        this.sessionId = sessionId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMarkdown() {

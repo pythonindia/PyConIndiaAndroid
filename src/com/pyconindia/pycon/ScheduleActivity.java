@@ -15,13 +15,9 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.pyconindia.pycon.adapters.ScheduleListAdapter;
 import com.pyconindia.pycon.models.ScheduleItem;
@@ -40,7 +36,7 @@ public class ScheduleActivity extends BaseActivity {
     private ScheduleListAdapter<ScheduleItem> adapter;
 
     public static final String[] DAY = {
-        "2015-10-01", "2015-10-02", "2015-10-03"
+        "2015-10-02", "2015-10-03", "2015-10-04"
     };
 
 	@Override
@@ -117,7 +113,7 @@ public class ScheduleActivity extends BaseActivity {
                 String time = iter2.next();
                 JSONArray scheduleListArr = dayObject.getJSONArray(time);
                 String startTime = "", endTime = "", name, description, type;
-                int roomId, sessionId;
+                int roomId, talkId;
                 boolean like, feedback;
                 ArrayList<Talk> talkList = new ArrayList<Talk>();
                 for(int i = 0; i < scheduleListArr.length(); i++) {
@@ -135,13 +131,13 @@ public class ScheduleActivity extends BaseActivity {
                     date =  (Date) formatter.parse(endTime);
                     endTime = new SimpleDateFormat("hh:mm a").format(date);
 
-                    sessionId = talkObj.getJSONObject("session").getInt("id");
-                    like = likes.has(""+sessionId) ? likes.getBoolean(""+sessionId) : false;
-                    feedback = feedbackObj.has(""+sessionId) ? feedbackObj.getBoolean(""+sessionId) : false;
+                    talkId = talkObj.getInt("id");
+                    like = likes.has(""+talkId) ? likes.getBoolean(""+talkId) : false;
+                    feedback = feedbackObj.has(""+talkId) ? feedbackObj.getBoolean(""+talkId) : false;
                     description = talkObj.getJSONObject("session").getString("description");
                     roomId = talkObj.getInt("room_id");
                     type = talkObj.getString("type");
-                    Talk talk = new Talk(sessionId, name.toUpperCase(), description, type, roomId, like, feedback);
+                    Talk talk = new Talk(talkId, name.toUpperCase(), description, type, roomId, like, feedback);
                     talkList.add(talk);
                 }
                 Collections.sort(talkList);

@@ -12,9 +12,9 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
 
+import com.pyconindia.pycon.http.Api;
 import com.pyconindia.pycon.storage.ApplicationData;
 import com.pythonindia.pycon.R;
-import com.pythonindia.pycon.http.Api;
 
 public class DetailsActivity extends BaseActivity {
 
@@ -24,6 +24,7 @@ public class DetailsActivity extends BaseActivity {
     private WebView webview;
     private RelativeLayout feedback;
     private String type;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class DetailsActivity extends BaseActivity {
         data = new ApplicationData(this);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            id = extras.getInt("id");
             title = extras.getString("title");
             description = extras.getString("description");
             type = extras.getString("type");
@@ -52,11 +54,17 @@ public class DetailsActivity extends BaseActivity {
             }
         });
 
+        if(type.equals("Workshop") || type.equals("Talk")) {
+            feedback.setVisibility(View.VISIBLE);
+        } else {
+            feedback.setVisibility(View.GONE);
+        }
     }
 
     private void startFeedbackActivity() {
         Intent intent = new Intent(DetailsActivity.this, FeedbackActivity.class);
         intent.putExtra("type", type);
+        intent.putExtra("id", id);
         startActivity(intent);
         finish();
     }
@@ -77,7 +85,6 @@ public class DetailsActivity extends BaseActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -89,6 +96,5 @@ public class DetailsActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
     }
 }

@@ -39,11 +39,12 @@ public class CustomListDrawable extends View {
     protected void onDraw(Canvas canvas) {
         int h = getHeight();
         int w = getWidth();
+        float radius = (15);
         float left = PADDING_LEFT + FIX;
         float right = left + 15;
-        float top = h/10 + 20;
+        float top = PADDING_TOP + 2*radius + 20;
         float bottom = h - PADDING_BOTTOM;
-        float radius = (15);
+
         float cx = PADDING_LEFT + radius;
         float cy = PADDING_TOP + radius;
 

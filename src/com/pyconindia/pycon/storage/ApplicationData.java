@@ -83,10 +83,14 @@ public class ApplicationData {
 
     public boolean isDeviceVerified() {
         String s = getString(DEVICE_VERIFIED);
-        if(s != null && s.equals("1")) {
+        if(s != null) {
             return true;
         }
         return false;
+    }
+
+    public String getDeviceUUID() {
+        return getString(DEVICE_VERIFIED);
     }
 
     public void setDeviceVerified(String verified) {

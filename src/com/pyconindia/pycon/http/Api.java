@@ -1,12 +1,16 @@
-package com.pythonindia.pycon.http;
+package com.pyconindia.pycon.http;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONArray;
 
 import android.content.Context;
 import android.util.Log;
@@ -18,10 +22,11 @@ public class Api {
 
 	public static final String CONFERENCES_URL = "https://in.pycon.org/cfp/api/v1/conferences/";
 	public static final String VENUES_URL = "https://in.pycon.org/cfp/api/v1/venues/";
-	public static final String ROOMS_URL = "https://in.pycon.org/cfp/api/v1/rooms/?venue=1";
+	public static final String ROOMS_URL = "https://in.pycon.org/cfp/api/v1/rooms/?venue=1/";
 	public static final String SCHEDULLES_LIST = "https://in.pycon.org/cfp/api/v1/schedules/?conference=1";
 	public static final String DEVICE_VERIFRY_URL = "https://in.pycon.org/cfp/api/v1/devices/";
 	public static final String FEEDBACK_QUESTION_URL = "https://in.pycon.org/cfp/api/v1/feedback_questions/?conference_id=1";
+	public static final String FEEDBACK_SUBMIT_URL = "https://in.pycon.org/cfp/api/v1/feedback/";
 
 	private ResponseHandler handler;
 	private Context context;
@@ -32,6 +37,7 @@ public class Api {
 		SCHEDULLES_LIST,
 		DEVICE_VERIFY,
 		FEEDBACK_QUESTION_URL,
+		FEEDBACK_SUBMIT_URL,
 		OTHER
 	}
 
@@ -59,13 +65,19 @@ public class Api {
 	public void verifyDevice(String uuid) {
 	    JSONObject jsonParams = new JSONObject();
 	    try {
-	        Log.d("abhishek", uuid);
             jsonParams.put("uuid", uuid);
-            post(DEVICE_VERIFRY_URL, UrlType.DEVICE_VERIFY, jsonParams);
+            post(DEVICE_VERIFRY_URL, UrlType.DEVICE_VERIFY, jsonParams, null);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 	}
+
+	public void submitFeedback(JSONObject params, String uuid) {
+	    HashMap<String, String> map = new HashMap<String, String>();
+	    map.put("Authorization", "Token: "+uuid);
+	    Log.d("abhishek", uuid);
+        post(FEEDBACK_SUBMIT_URL, UrlType.FEEDBACK_SUBMIT_URL, params, map);
+    }
 
 	public void getFeedbackQuestions() {
 	    get(FEEDBACK_QUESTION_URL, UrlType.FEEDBACK_QUESTION_URL);
@@ -92,12 +104,21 @@ public class Api {
 		});
 	}
 
-	private void post(String url, final UrlType urlType, JSONObject jsonParams) {
+	private void post(String url, final UrlType urlType, JSONObject jsonParams, HashMap<String, String> headers) {
 
+	    AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         StringEntity entity;
         try {
             entity = new StringEntity(jsonParams.toString());
-            AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+            if(headers != null) {
+                Iterator<Entry<String, String>> it = headers.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry<String, String> map = it.next();
+                    asyncHttpClient.addHeader(map.getKey(), map.getValue());
+                    Log.d("abhishek", ""+map.getKey() +" - "+ map.getValue());
+                }
+            }
+
             asyncHttpClient.post(context, url, entity, "application/json", new JsonHttpResponseHandler(){
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

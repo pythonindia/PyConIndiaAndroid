@@ -3,9 +3,9 @@ package com.pyconindia.pycon;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.pyconindia.pycon.http.ResponseHandler;
+import com.pyconindia.pycon.http.Api.UrlType;
 import com.pythonindia.pycon.R;
-import com.pythonindia.pycon.http.ResponseHandler;
-import com.pythonindia.pycon.http.Api.UrlType;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

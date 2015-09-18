@@ -1,6 +1,7 @@
 package com.pyconindia.pycon;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
@@ -8,12 +9,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.pyconindia.pycon.http.Api;
+import com.pyconindia.pycon.http.Api.UrlType;
 import com.pyconindia.pycon.storage.ApplicationData;
 import com.pyconindia.pycon.storage.DeviceUuidFactory;
 import com.pyconindia.pycon.storage.Installation;
 import com.pythonindia.pycon.R;
-import com.pythonindia.pycon.http.Api;
-import com.pythonindia.pycon.http.Api.UrlType;
 
 public class SplashActivity extends BaseActivity {
 
@@ -41,6 +42,7 @@ public class SplashActivity extends BaseActivity {
     //            api.getRooms(); // We don't need this for the time being
 //            }
         } else {
+            NUMBER_OF_API_CALLS = 3;
             String uuid = Installation.id(this);
             api.verifyDevice(uuid);
             api.getFeedbackQuestions();
@@ -52,9 +54,14 @@ public class SplashActivity extends BaseActivity {
 	public void onSuccess(int statusCode, JSONObject response, UrlType urlType) {
 		if(urlType == UrlType.DEVICE_VERIFY) {
 		    if(response.has("uuid")) {
-    		    String verified = "1";
-    		    data.setDeviceVerified(verified);
-    		    progress();
+    		    String verified;
+                try {
+                    verified = response.getString("uuid");
+                    data.setDeviceVerified(verified);
+                    progress();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 		    }
 		} else if(urlType == UrlType.SCHEDULLES_LIST) {
 		    data.setSchedulesList(response);

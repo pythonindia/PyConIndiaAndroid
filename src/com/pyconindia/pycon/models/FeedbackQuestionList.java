@@ -32,6 +32,7 @@ public class FeedbackQuestionList {
                 for(int i = 0; i < textArr.length(); i++) {
                     JSONObject obj = textArr.getJSONObject(i);
                         ChoiceQuestion q = new ChoiceQuestion();
+                        q.setId(obj.getInt(FeedbackQuestion.ID));
                         q.setRequired(obj.getBoolean(FeedbackQuestion.REQUIRED));
                         q.setTitle(obj.getString(FeedbackQuestion.TITLE));
                         ArrayList<FeedbackChoice> choices = null;
@@ -59,6 +60,7 @@ public class FeedbackQuestionList {
                     TextQuestion q = new TextQuestion();
                     q.setRequired(obj.getBoolean(FeedbackQuestion.REQUIRED));
                     q.setTitle(obj.getString(FeedbackQuestion.TITLE));
+                    q.setId(obj.getInt(FeedbackQuestion.ID));
                     textQuestions.add(q);
                 }
             } catch (JSONException e) {

@@ -91,7 +91,7 @@ public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<Sc
                 @Override
                 public void onClick(View v) {
                     talk.setLiked(!talk.isLiked());
-                    data.setTalkLike(""+talk.getSessionId(), talk.isLiked());
+                    data.setTalkLike(""+talk.getId(), talk.isLiked());
 
                     if(talk.isLiked()) {
                         likedImage.setImageResource(R.drawable.pycon_favorite_active);
@@ -105,7 +105,7 @@ public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<Sc
 
                 @Override
                 public void onClick(View v) {
-                    startDetailsActivity(talk.getTitle(), talk.getMarkdown(), talk.getType());
+                    startDetailsActivity(talk.getTitle(), talk.getMarkdown(), talk.getType(), talk.getId());
                 }
             });
 
@@ -113,7 +113,7 @@ public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<Sc
 
                 @Override
                 public void onClick(View v) {
-                    startDetailsActivity(talk.getTitle(), talk.getMarkdown(), talk.getType());
+                    startDetailsActivity(talk.getTitle(), talk.getMarkdown(), talk.getType(), talk.getId());
                 }
             });
 
@@ -127,8 +127,9 @@ public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<Sc
     }
 
 
-    private void startDetailsActivity(String title, String description, String type) {
+    private void startDetailsActivity(String title, String description, String type, int id) {
         Intent intent = new Intent(context, DetailsActivity.class);
+        intent.putExtra("id", id);
         intent.putExtra("title", title);
         intent.putExtra("description", description);
         intent.putExtra("type", type);

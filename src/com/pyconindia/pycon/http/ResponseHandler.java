@@ -1,9 +1,9 @@
-package com.pythonindia.pycon.http;
+package com.pyconindia.pycon.http;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.pythonindia.pycon.http.Api.UrlType;
+import com.pyconindia.pycon.http.Api.UrlType;
 
 public interface ResponseHandler {
 
