@@ -24,7 +24,6 @@ import com.pyconindia.pycon.models.ScheduleItem;
 import com.pyconindia.pycon.models.Talk;
 import com.pyconindia.pycon.storage.ApplicationData;
 import com.pyconindia.pycon.view.SlidingTabLayout;
-import com.pythonindia.pycon.R;
 
 public class ScheduleActivity extends BaseActivity {
 
@@ -79,6 +78,8 @@ public class ScheduleActivity extends BaseActivity {
         listview2.setAdapter(new ScheduleListAdapter<ScheduleItem>(ScheduleActivity.this, R.layout.pager_item, scheduleList));
         scheduleList = getScheduleList(2);
         listview3.setAdapter(new ScheduleListAdapter<ScheduleItem>(ScheduleActivity.this, R.layout.pager_item, scheduleList));
+        int pageNo = ((BaseApplication) this.getApplication()).getPageNumber();
+        mViewPager.setCurrentItem(pageNo, true);
 	}
 
 	@Override
@@ -89,6 +90,7 @@ public class ScheduleActivity extends BaseActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		((BaseApplication) this.getApplication()).setPageNumber(mViewPager.getCurrentItem());
 	}
 
 	@Override

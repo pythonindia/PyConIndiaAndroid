@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pythonindia.pycon"
+    package="com.pyconindia.pycon"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -15,6 +15,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:largeHeap="true"
+        android:name="BaseApplication"
          >
         
         <activity android:name="com.pyconindia.pycon.SplashActivity" >

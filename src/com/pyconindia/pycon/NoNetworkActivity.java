@@ -5,7 +5,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.pythonindia.pycon.R;
 
 public class NoNetworkActivity extends BaseActivity {
 

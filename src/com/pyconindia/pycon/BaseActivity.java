@@ -3,25 +3,17 @@ package com.pyconindia.pycon;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import com.pyconindia.pycon.http.Api.UrlType;
 import com.pyconindia.pycon.http.ResponseHandler;
-import com.pythonindia.pycon.R;
 
 public class BaseActivity extends AppCompatActivity implements ResponseHandler {
 	@Override

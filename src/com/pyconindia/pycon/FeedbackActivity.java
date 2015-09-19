@@ -35,7 +35,6 @@ import com.pyconindia.pycon.models.FeedbackQuestionList;
 import com.pyconindia.pycon.models.TextQuestion;
 import com.pyconindia.pycon.storage.ApplicationData;
 import com.pyconindia.pycon.view.PRadioButton;
-import com.pythonindia.pycon.R;
 
 public class FeedbackActivity extends BaseActivity {
 

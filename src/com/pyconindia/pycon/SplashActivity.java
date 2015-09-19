@@ -13,7 +13,6 @@ import com.pyconindia.pycon.http.Api;
 import com.pyconindia.pycon.http.Api.UrlType;
 import com.pyconindia.pycon.storage.ApplicationData;
 import com.pyconindia.pycon.storage.Installation;
-import com.pythonindia.pycon.R;
 
 public class SplashActivity extends BaseActivity {
 

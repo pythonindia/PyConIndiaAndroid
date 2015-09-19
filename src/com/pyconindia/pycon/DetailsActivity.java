@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 
 import com.pyconindia.pycon.http.Api;
 import com.pyconindia.pycon.storage.ApplicationData;
-import com.pythonindia.pycon.R;
 
 public class DetailsActivity extends BaseActivity {
 

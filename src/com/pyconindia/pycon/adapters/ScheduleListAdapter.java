@@ -23,7 +23,7 @@ import com.pyconindia.pycon.models.ScheduleItem;
 import com.pyconindia.pycon.models.Talk;
 import com.pyconindia.pycon.storage.ApplicationData;
 import com.pyconindia.pycon.utils.Alarm;
-import com.pythonindia.pycon.R;
+import com.pyconindia.pycon.R;
 
 public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<ScheduleItem> {
 

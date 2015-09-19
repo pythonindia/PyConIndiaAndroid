@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.pyconindia.pycon.ScheduleActivity;
-import com.pythonindia.pycon.R;
+import com.pyconindia.pycon.R;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
