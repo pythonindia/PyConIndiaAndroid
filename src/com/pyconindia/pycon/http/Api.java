@@ -22,7 +22,7 @@ public class Api {
 
 	public static final String CONFERENCES_URL = "https://in.pycon.org/cfp/api/v1/conferences/";
 	public static final String VENUES_URL = "https://in.pycon.org/cfp/api/v1/venues/";
-	public static final String ROOMS_URL = "https://in.pycon.org/cfp/api/v1/rooms/?venue=1/";
+	public static final String ROOMS_URL = "https://in.pycon.org/cfp/api/v1/rooms/?venue=1";
 	public static final String SCHEDULLES_LIST = "https://in.pycon.org/cfp/api/v1/schedules/?conference=1";
 	public static final String DEVICE_VERIFRY_URL = "https://in.pycon.org/cfp/api/v1/devices/";
 	public static final String FEEDBACK_QUESTION_URL = "https://in.pycon.org/cfp/api/v1/feedback_questions/?conference_id=1";

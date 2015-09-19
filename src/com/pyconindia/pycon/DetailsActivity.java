@@ -34,7 +34,7 @@ public class DetailsActivity extends BaseActivity {
         webview = (WebView) findViewById(R.id.description);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Detalis");
+        getSupportActionBar().setTitle(getText(R.string.details_ctivity_title));
         getSupportActionBar().setIcon(R.drawable.footerlogo);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         data = new ApplicationData(this);
