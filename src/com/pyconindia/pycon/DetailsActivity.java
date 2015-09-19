@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.pyconindia.pycon.http.Api;
@@ -21,7 +22,7 @@ public class DetailsActivity extends BaseActivity {
     private String title;
     private String description;
     private WebView webview;
-    private RelativeLayout feedbackLayout;
+    private ImageButton feedbackBtn;
     private String type;
     private int id;
     private boolean feedback;
@@ -46,8 +47,8 @@ public class DetailsActivity extends BaseActivity {
             feedback = extras.getBoolean("feedback");
         }
 
-        feedbackLayout = (RelativeLayout) findViewById(R.id.feedback);
-        feedbackLayout.setOnClickListener(new View.OnClickListener() {
+        feedbackBtn = (ImageButton) findViewById(R.id.feedback);
+        feedbackBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -56,9 +57,9 @@ public class DetailsActivity extends BaseActivity {
         });
 
         if((type.equals("Workshop") || type.equals("Talk") ) && !feedback) {
-            feedbackLayout.setVisibility(View.VISIBLE);
+            feedbackBtn.setVisibility(View.VISIBLE);
         } else {
-            feedbackLayout.setVisibility(View.GONE);
+            feedbackBtn.setVisibility(View.GONE);
         }
     }
 
