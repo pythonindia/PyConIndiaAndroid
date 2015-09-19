@@ -61,56 +61,56 @@ public class BaseActivity extends AppCompatActivity implements ResponseHandler {
          Spannable s = Spannable.Factory.getInstance().newSpannable("");
          s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)), 0, s.length(), 0);
         switch (item.getItemId()) {
-            case R.id.credits:
-                s = Spannable.Factory.getInstance().newSpannable(this.getText(R.string.credits_title));
-                s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)), 0, s.length(), 0);
-                final TextView msg = new TextView(this);
-                final SpannableString s11 =
-                             new SpannableString(this.getText(R.string.credits));
-                s11.setSpan(new ClickableSpan() {
-
-                    @Override
-                    public void onClick(View arg0) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/abhi1992"));
-                        startActivity(browserIntent);
-
-                    }
-                }, s11.toString().indexOf("Abhishek"), s11.toString().indexOf("Banerjee")+8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                s11.setSpan(new ClickableSpan() {
-
-                    @Override
-                    public void onClick(View arg0) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/kracekumar"));
-                        startActivity(browserIntent);
-
-                    }
-                }, s11.toString().indexOf("Kracekumar"), s11.toString().indexOf("Ramaraju")+8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                s11.setSpan(new ClickableSpan() {
-
-                    @Override
-                    public void onClick(View arg0) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/tanaykumarbera"));
-                        startActivity(browserIntent);
-
-                    }
-                }, s11.toString().indexOf("Tanay"), s11.toString().indexOf("Bera")+4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-
-                msg.setTextSize(18);
-                msg.setPadding(30, 10, 30, 10);
-                msg.setText(s11);
-                msg.setMovementMethod(LinkMovementMethod.getInstance());
-
-                new AlertDialog.Builder(this)
-                 .setTitle(s)
-                 .setCancelable(true)
-                 .setIcon(R.drawable.ic_launcher)
-                 .setPositiveButton("OK", null)
-                 .setView(msg)
-                 .create().show();
-                return true;
+//            case R.id.credits:
+//                s = Spannable.Factory.getInstance().newSpannable(this.getText(R.string.credits_title));
+//                s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)), 0, s.length(), 0);
+//                final TextView msg = new TextView(this);
+//                final SpannableString s11 =
+//                             new SpannableString(this.getText(R.string.credits));
+//                s11.setSpan(new ClickableSpan() {
+//
+//                    @Override
+//                    public void onClick(View arg0) {
+//                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/abhi1992"));
+//                        startActivity(browserIntent);
+//
+//                    }
+//                }, s11.toString().indexOf("Abhishek"), s11.toString().indexOf("Banerjee")+8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//
+//                s11.setSpan(new ClickableSpan() {
+//
+//                    @Override
+//                    public void onClick(View arg0) {
+//                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/kracekumar"));
+//                        startActivity(browserIntent);
+//
+//                    }
+//                }, s11.toString().indexOf("Kracekumar"), s11.toString().indexOf("Ramaraju")+8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//
+//                s11.setSpan(new ClickableSpan() {
+//
+//                    @Override
+//                    public void onClick(View arg0) {
+//                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/tanaykumarbera"));
+//                        startActivity(browserIntent);
+//
+//                    }
+//                }, s11.toString().indexOf("Tanay"), s11.toString().indexOf("Bera")+4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//
+//
+//                msg.setTextSize(18);
+//                msg.setPadding(30, 10, 30, 10);
+//                msg.setText(s11);
+//                msg.setMovementMethod(LinkMovementMethod.getInstance());
+//
+//                new AlertDialog.Builder(this)
+//                 .setTitle(s)
+//                 .setCancelable(true)
+//                 .setIcon(R.drawable.ic_launcher)
+//                 .setPositiveButton("OK", null)
+//                 .setView(msg)
+//                 .create().show();
+//                return true;
             case R.id.help:
                 s = Spannable.Factory.getInstance().newSpannable(this.getText(R.string.help_title));
                 s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)), 0, s.length(), 0);
