@@ -81,7 +81,9 @@ public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<Sc
             } else if(talk.getAudiNo() == 3) {
                 audiImg.setBackgroundResource(R.drawable.pycon_audi_3);
             } else {
-                audiImg.setBackgroundResource(R.drawable.pycon_audi_4);
+                audiImg.setImageResource(android.R.color.transparent);
+                audiImg.setBackgroundResource(R.drawable.lunch);
+                audiView.setText("BUFFET HALL"); // Magical Code Do not touch!!
             }
 
             if(talk.isFeedbackGiven()) {
