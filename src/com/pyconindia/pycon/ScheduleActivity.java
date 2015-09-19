@@ -11,15 +11,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.pyconindia.pycon.adapters.ScheduleListAdapter;
+import com.pyconindia.pycon.http.Api;
+import com.pyconindia.pycon.http.Api.UrlType;
 import com.pyconindia.pycon.models.ScheduleItem;
 import com.pyconindia.pycon.models.Talk;
 import com.pyconindia.pycon.storage.ApplicationData;
@@ -28,11 +37,13 @@ import com.pyconindia.pycon.view.SlidingTabLayout;
 public class ScheduleActivity extends BaseActivity {
 
     private ApplicationData data;
+    private Api api;
     private ViewPager mViewPager;
     private SlidingTabLayout mSlidingTabLayout;
     private ListView scheduleListView;
     private ArrayList<ScheduleItem> scheduleList;
     private ScheduleListAdapter<ScheduleItem> adapter;
+    private ProgressDialog progress;
 
     public static final String[] DAY = {
         "2015-10-02", "2015-10-03", "2015-10-04"
@@ -46,12 +57,16 @@ public class ScheduleActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(this.getString(R.string.app_name));
         getSupportActionBar().setIcon(R.drawable.footerlogo);
+        progress = new ProgressDialog(this);
+        progress.setCancelable(false);
+        progress.setCanceledOnTouchOutside(false);
+        progress.setMessage(this.getText(R.string.schedule_refresh_loading_text));
 	}
 
 	private void initComponents() {
 	    mViewPager = (ViewPager) findViewById(R.id.pager);
         data = new ApplicationData(ScheduleActivity.this);
-
+        api = new Api(this, this);
         scheduleList = new ArrayList<ScheduleItem>();
 
         ArrayList<ListView> lists = new ArrayList<ListView>();
@@ -90,6 +105,7 @@ public class ScheduleActivity extends BaseActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		progress.dismiss();
 		((BaseApplication) this.getApplication()).setPageNumber(mViewPager.getCurrentItem());
 	}
 
@@ -103,6 +119,53 @@ public class ScheduleActivity extends BaseActivity {
 	protected void onStop() {
 		super.onStop();
 	}
+
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_schedule, menu);
+        return true;
+    }
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+	   if(!super.onOptionsItemSelected(item)) {
+           switch (item.getItemId()) {
+
+           case R.id.refresh:
+               progress.show();
+               api.getSchedulesList();
+               break;
+               default:
+                   break;
+           }
+	   }
+       return true;
+	}
+
+	@Override
+    public void onSuccess(int statusCode, JSONObject response, UrlType urlType) {
+        if(urlType == UrlType.SCHEDULLES_LIST) {
+            progress.dismiss();
+            data.setSchedulesList(response);
+            initComponents();
+            Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onFailure(int statusCode, Throwable e, UrlType urlType,
+            JSONObject response) {
+        progress.dismiss();
+        if(urlType == UrlType.SCHEDULLES_LIST) {
+            JSONObject scheduleList = data.getScheduleList();
+            if(scheduleList != null) {
+                Toast.makeText(this, "No network showing old data", Toast.LENGTH_SHORT).show();
+                initComponents();
+            } else {
+                Toast.makeText(this, "Exiting: No network or old data found", Toast.LENGTH_SHORT).show(); //WTF?? Deleted old data
+                finish(); // Die!!!
+            }
+        }
+    }
 
 	public ArrayList<ScheduleItem> getScheduleList(int dayNo) {
         JSONObject scObject = data.getScheduleList();

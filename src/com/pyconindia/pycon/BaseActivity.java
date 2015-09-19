@@ -128,7 +128,6 @@ public class BaseActivity extends AppCompatActivity implements ResponseHandler {
                  .setMessage(this.getText(R.string.about))
                  .create().show();
                 return true;
-
             default:
                 break;
         }

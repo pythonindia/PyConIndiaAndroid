@@ -7,6 +7,10 @@
     <string name="comments">Comments</string>
     <string name="credits_title">Credits</string>
     <string name="details_ctivity_title">Details</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_about">About</string>
+    <string name="schedule_refresh_loading_text">Refreshing Schedule Data...</string>
     <string name="credits"><i>Developer: </i>
        Abhishek Banerjee
        \n<i>Backend: </i>
