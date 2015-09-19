@@ -9,9 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,9 +23,7 @@ import android.view.View.OnTouchListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +43,7 @@ public class FeedbackActivity extends BaseActivity {
     private String type;
     private int id;
     private Api api;
+    private ProgressDialog progress;
     private HashMap<Integer, EditText> textMap = new HashMap<Integer, EditText>();
     private HashMap<Integer, Integer> radioMap = new HashMap<Integer, Integer>();
     private FeedbackQuestionList list;
@@ -63,6 +61,10 @@ public class FeedbackActivity extends BaseActivity {
         LinearLayout questionsLayout = (LinearLayout) findViewById(R.id.feedback);
         api = new Api(this, this);
         data = new ApplicationData(this);
+        progress = new ProgressDialog(this);
+        progress.setCancelable(true);
+        progress.setCanceledOnTouchOutside(false);
+        progress.setMessage("Sending Feedback...");
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             type = extras.getString("type");
@@ -74,7 +76,9 @@ public class FeedbackActivity extends BaseActivity {
                 View v = inflater.inflate(R.layout.feedback_choice, null);
                 LinearLayout choicesLayout = (LinearLayout) v.findViewById(R.id.choices);
                 TextView title = (TextView) v.findViewById(R.id.title);
-                title.setText(question.getTitle());
+                String titleText = question.getTitle();
+                titleText += question.isRequired() ? " *" : "";
+                title.setText(titleText);
                 RadioGroup group = new RadioGroup(this);
                 for(FeedbackChoice choice : question.getChoices()) {
                     final PRadioButton b = new PRadioButton(this, choice.getId(), choice.getValue(), question.getId());
@@ -146,9 +150,8 @@ public class FeedbackActivity extends BaseActivity {
                         params.put("schedule_item_id", id);
                         params.put("choices", choiceArr);
                         params.put("text", textArr);
-                        Log.d("abhishek", params.toString());
                         api.submitFeedback(params, data.getDeviceUUID());
-
+                        progress.show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -189,7 +192,9 @@ public class FeedbackActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        onBackPressed();
+        if(!super.onOptionsItemSelected(item)) {
+            onBackPressed();
+        }
         return true;
     }
 
@@ -206,32 +211,42 @@ public class FeedbackActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        progress.dismiss();
         super.onBackPressed();
-
     }
 
     @Override
     public void onSuccess(int statusCode, JSONObject response, UrlType urlType) {
+        progress.dismiss();
         if(statusCode == 201) {
-
+            Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
+            data.setFeedbackGiven(""+id, true);
+            onBackPressed();
+        } else {
+            Toast.makeText(this, "Something's not right", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, ""+response); //WTF??
         }
-    }
-
-    @Override
-    public void onSuccess(int statusCode, JSONArray response, UrlType urlType) {
-
-        Log.d("abhishek", response.toString());
-    }
-
-    @Override
-    public void onFailure(int statusCode, String resonseString, Throwable e, UrlType urlType) {
-
     }
 
     @Override
     public void onFailure(int statusCode, Throwable e, UrlType urlType,
             JSONObject response) {
+        progress.dismiss();
 
-        Log.d("abhishek", response.toString());
+
+        try {
+            if(response != null && response.has("error")) {
+                Log.d(TAG, response.toString());
+                data.setFeedbackGiven(""+id, true);
+                Toast.makeText(this, response.getString("error"), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "No Network", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e1) {
+            Log.e(TAG, new Exception(e1).toString());
+            Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 }

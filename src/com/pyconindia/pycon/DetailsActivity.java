@@ -22,9 +22,10 @@ public class DetailsActivity extends BaseActivity {
     private String title;
     private String description;
     private WebView webview;
-    private RelativeLayout feedback;
+    private RelativeLayout feedbackLayout;
     private String type;
     private int id;
+    private boolean feedback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +44,11 @@ public class DetailsActivity extends BaseActivity {
             title = extras.getString("title");
             description = extras.getString("description");
             type = extras.getString("type");
+            feedback = extras.getBoolean("feedback");
         }
 
-        feedback = (RelativeLayout) findViewById(R.id.feedback);
-        feedback.setOnClickListener(new View.OnClickListener() {
+        feedbackLayout = (RelativeLayout) findViewById(R.id.feedback);
+        feedbackLayout.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -54,10 +56,10 @@ public class DetailsActivity extends BaseActivity {
             }
         });
 
-        if(type.equals("Workshop") || type.equals("Talk")) {
-            feedback.setVisibility(View.VISIBLE);
+        if((type.equals("Workshop") || type.equals("Talk") ) && !feedback) {
+            feedbackLayout.setVisibility(View.VISIBLE);
         } else {
-            feedback.setVisibility(View.GONE);
+            feedbackLayout.setVisibility(View.GONE);
         }
     }
 
@@ -89,7 +91,9 @@ public class DetailsActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        onBackPressed();
+        if(!super.onOptionsItemSelected(item)) {
+            onBackPressed();
+        }
         return true;
     }
 

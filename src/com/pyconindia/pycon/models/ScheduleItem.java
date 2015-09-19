@@ -7,11 +7,13 @@ public class ScheduleItem {
     private ArrayList<Talk> talkList;
     private String startTime;
     private String endTime;
+    private String eventDate;
 
-    public ScheduleItem(String startTime, String endTime, ArrayList<Talk> talkList) {
+    public ScheduleItem(String eventDate, String startTime, String endTime, ArrayList<Talk> talkList) {
         this.startTime = startTime;
         this.setEndTime(endTime);
         this.setTalkList(talkList);
+        this.setEventDate(eventDate);
     }
 
     public String getStartTime() {
@@ -36,6 +38,14 @@ public class ScheduleItem {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
     }
 
 

@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.pyconindia.pycon.http.Api;
 import com.pyconindia.pycon.http.Api.UrlType;
 import com.pyconindia.pycon.storage.ApplicationData;
-import com.pyconindia.pycon.storage.DeviceUuidFactory;
 import com.pyconindia.pycon.storage.Installation;
 import com.pythonindia.pycon.R;
 
@@ -30,8 +29,8 @@ public class SplashActivity extends BaseActivity {
 		setContentView(R.layout.activity_splash);
 		Api api = new Api(this, this);
 		data = new ApplicationData(this);
-        JSONObject scheduleList = data.getScheduleList(); //TODO: Remove this after testing
-        JSONObject feedbackObj = data.getFeedbackQuestions();
+//        JSONObject scheduleList = data.getScheduleList(); //TODO: Remove this after testing
+//        JSONObject feedbackObj = data.getFeedbackQuestions();
 
         if(data.isDeviceVerified()) {
 //            if(scheduleList.length() > 0 && feedbackObj.has("Workshop")) { //TODO: Remove this after testing
@@ -91,7 +90,8 @@ public class SplashActivity extends BaseActivity {
                 Toast.makeText(this, "Showing old data", Toast.LENGTH_SHORT).show();
                 progress();
             } else {
-                showNoNetworkActivity();
+//                showNoNetworkActivity();
+                showNoNetwork();
             }
         } else if(urlType == UrlType.FEEDBACK_QUESTION_URL) {
             JSONObject feedbackObj = data.getFeedbackQuestions();
@@ -99,7 +99,8 @@ public class SplashActivity extends BaseActivity {
                 Log.d(TAG, "Found old feedback Show em!!");
                 progress();
             } else {
-                showNoNetworkActivity();
+//                showNoNetworkActivity();
+                showNoNetwork();
             }
         }
     }
@@ -118,9 +119,10 @@ public class SplashActivity extends BaseActivity {
         finish();
 	}
 
-	private void showNoNetworkActivity() {
-	    Intent intent = new Intent(SplashActivity.this, NoNetworkActivity.class);
-        startActivity(intent);
+	private void showNoNetwork() {
+//	    Intent intent = new Intent(SplashActivity.this, NoNetworkActivity.class);
+//        startActivity(intent);
+	    Toast.makeText(this, "No Internet", Toast.LENGTH_SHORT).show();
         finish();
 	}
 

@@ -65,6 +65,16 @@ public class ApplicationData {
 	    setScheduleLikes(obj);
 	}
 
+	public void setFeedbackGiven(String key, boolean value) {
+	    JSONObject obj = getScheduleFeedback();
+        try {
+            obj.put(key, value);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        setScheduleFeedback(obj);
+	}
+
 	public void setScheduleLikes(JSONObject likeObj) {
 	    setString(LIKED_LIST, likeObj.toString());
 	}
@@ -73,8 +83,8 @@ public class ApplicationData {
         return getJSONObjectFromKey(LIKED_LIST);
 	}
 
-	public void setScheduleFeedback(JSONObject likeObj) {
-        setString(FEEDBACK_LIST, likeObj.toString());
+	public void setScheduleFeedback(JSONObject feedbackObj) {
+        setString(FEEDBACK_LIST, feedbackObj.toString());
     }
 
     public JSONObject getScheduleFeedback() {
@@ -113,4 +123,6 @@ public class ApplicationData {
             return new JSONObject();
         }
     }
+
+
 }

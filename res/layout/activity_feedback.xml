@@ -28,9 +28,8 @@
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:layout_marginBottom="5dp"
-    android:elevation="3dp"
+    android:elevation="2dp"
     android:layout_below="@+id/feedback"
-    android:layout_alignParentBottom="true"
         >
         <ImageView 
             android:paddingLeft="20dp"

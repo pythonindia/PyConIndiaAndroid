@@ -75,7 +75,6 @@ public class Api {
 	public void submitFeedback(JSONObject params, String uuid) {
 	    HashMap<String, String> map = new HashMap<String, String>();
 	    map.put("Authorization", "Token: "+uuid);
-	    Log.d("abhishek", uuid);
         post(FEEDBACK_SUBMIT_URL, UrlType.FEEDBACK_SUBMIT_URL, params, map);
     }
 
@@ -98,7 +97,6 @@ public class Api {
 				@Override
                 public void onFailure(int statusCode, Header[] headers,
                         Throwable throwable, JSONObject response) {
-                    Log.d("abhishek", "response fail");
                     handler.onFailure(statusCode, throwable, urlType, response);
                 }
 		});
@@ -115,7 +113,6 @@ public class Api {
                 while (it.hasNext()) {
                     Map.Entry<String, String> map = it.next();
                     asyncHttpClient.addHeader(map.getKey(), map.getValue());
-                    Log.d("abhishek", ""+map.getKey() +" - "+ map.getValue());
                 }
             }
 
@@ -132,7 +129,6 @@ public class Api {
                     @Override
                     public void onFailure(int statusCode, Header[] headers,
                             Throwable throwable, JSONObject response) {
-                        Log.d("abhishek", "response fail");
                         new Exception(throwable).printStackTrace();
                         handler.onFailure(statusCode, throwable, urlType, response);
                     }

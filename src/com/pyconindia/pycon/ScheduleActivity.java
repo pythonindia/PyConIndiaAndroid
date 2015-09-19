@@ -45,10 +45,12 @@ public class ScheduleActivity extends BaseActivity {
 		setContentView(R.layout.activity_schedule);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("PyCon");
+        getSupportActionBar().setTitle(this.getString(R.string.app_name));
         getSupportActionBar().setIcon(R.drawable.footerlogo);
+	}
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+	private void initComponents() {
+	    mViewPager = (ViewPager) findViewById(R.id.pager);
         data = new ApplicationData(ScheduleActivity.this);
 
         scheduleList = new ArrayList<ScheduleItem>();
@@ -92,6 +94,7 @@ public class ScheduleActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		initComponents();
 	}
 
 	@Override
@@ -112,7 +115,7 @@ public class ScheduleActivity extends BaseActivity {
             while (iter2.hasNext()) {
                 String time = iter2.next();
                 JSONArray scheduleListArr = dayObject.getJSONArray(time);
-                String startTime = "", endTime = "", name, description, type;
+                String startTime = "", endTime = "", name, description, type, eventDate = "";
                 int roomId, talkId;
                 boolean like, feedback;
                 ArrayList<Talk> talkList = new ArrayList<Talk>();
@@ -122,7 +125,7 @@ public class ScheduleActivity extends BaseActivity {
                     name = talkObj.getString("name");
                     startTime = talkObj.getString("start_time");
                     endTime = talkObj.getString("end_time");
-
+                    eventDate = talkObj.getString("event_date");
                     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
                     Date date =  (Date) formatter.parse(startTime);
                     startTime = new SimpleDateFormat("hh:mm a").format(date);
@@ -141,7 +144,7 @@ public class ScheduleActivity extends BaseActivity {
                     talkList.add(talk);
                 }
                 Collections.sort(talkList);
-                ScheduleItem item = new ScheduleItem(startTime, endTime, talkList);
+                ScheduleItem item = new ScheduleItem(eventDate, startTime, endTime, talkList);
                 scheduleList.add(item);
             }
 

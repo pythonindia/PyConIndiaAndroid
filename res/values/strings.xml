@@ -1,8 +1,28 @@
 <resources>
 
-    <string name="app_name">PyConIndiaAndroid</string>
+    <string name="app_name">PyCon India 2015</string>
     <string name="audi">AUDI</string>
     <string name="submit_feedback">Submit Feedback</string>
     <string name="give_feedback">Give Feedback</string>
     <string name="comments">Comments</string>
+    <string name="credits_title">Credits</string>
+    <string name="credits"><i>Developer: </i>
+       Abhishek Banerjee
+       \n<i>Backend: </i>
+       Kracekumar Ramaraju
+       \n<i>Design: </i>
+       Tanay Kumar Bera</string>
+    <string name="about_title">About PyCon India 2015</string>
+    <string name="about">
+        PyCon India 2015 is the official app to view conference schedule list and submit feedback. 
+        We would love to hear from you so please give us your valuable feedback on the workshops and talks. 
+        It would help us build more productive and engaging conferences.
+	 </string>
+	 <string name="help_title">Help Contents</string>
+	 <string name="help">
+     Click the heart shaped button to receive prior notification alerts before event.
+     \nFill up all the requied fields before submitting the feedback. Required Fields are marked with an asterix (*).
+     \nClick on the title or description to open the details view.
+     </string>
+     
 </resources>
