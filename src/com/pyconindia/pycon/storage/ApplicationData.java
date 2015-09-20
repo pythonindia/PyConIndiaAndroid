@@ -4,6 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.pyconindia.pycon.models.ScheduleItem;
+import com.pyconindia.pycon.models.Talk;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -17,6 +20,7 @@ public class ApplicationData {
 	private static String FEEDBACK_LIST = "FEEDBACK_LIST";
 	private static String DEVICE_VERIFIED = "DEVICE_VERIFIED";
 	private static String FEEDBACK_QUESTIONS = "FEEDBACK_QUESTIONS";
+	private static String CURRENT_TALK = "CURRENT_TALK";
 
 	public ApplicationData(Context context) {
 		this.context = context;
@@ -124,5 +128,92 @@ public class ApplicationData {
         }
     }
 
+    public void setCurrentTalk(Talk talk) {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("title", talk.getTitle());
+            obj.put("markdown", talk.getMarkdown());
+            obj.put("id", talk.getId());
+            obj.put("room_id", talk.getAudiNo());
+            if(talk.getAuthor() != "") {
+                obj.put("author", talk.getAuthor());
+            }
+            if(talk.getSpeakerInfo() != "") {
+                obj.put("speaker_info", talk.getSpeakerInfo());
+            }
+            if(talk.getSection() != "") {
+                obj.put("section", talk.getSection());
+            }
+            if(talk.getStartTime() != "") {
+                obj.put("start_time", talk.getStartTime());
+            }
+            if(talk.getEndTime() != "") {
+                obj.put("end_time", talk.getEndTime());
+            }
+            if(talk.getPrerequisites() != "") {
+                obj.put("prerequisites", talk.getPrerequisites());
+            }
+            if(talk.getType() != "") {
+                obj.put("type", talk.getType());
+            }
+            if(talk.getTargetAudience() != -1) {
+                obj.put("target_audience", talk.getTargetAudience());
+            }
+            if(talk.getContentUrls() != "") {
+                obj.put("content_urls", talk.getContentUrls());
+            }
+            setString(CURRENT_TALK, obj.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public Talk getCurrentTalk() {
+        Talk talk = null;
+        try {
+        JSONObject talkObj = getJSONObjectFromKey(CURRENT_TALK);
+        if(talkObj.has("title")) {
+            String startTime = "", endTime = "", name, markdown, type, eventDate = "";
+            int roomId, talkId;
+            boolean like = false, feedback = false;
+            talkId = talkObj.getInt("id");
+            markdown = talkObj.getString("markdown");
+            roomId = talkObj.getInt("room_id");
+            type = talkObj.getString("type");
+            name = talkObj.getString("title");
+            talk = new Talk(talkId, name, markdown, type, roomId, like, feedback);
+
+            if(talkObj.has("content_urls")) {
+                talk.setContentUrls(talkObj.getString("content_urls"));
+            }
+            if(talkObj.has("speaker_info")) {
+                talk.setSpeakerInfo(talkObj.getString("speaker_info"));
+            }
+            if(talkObj.has("target_audience")) {
+                talk.setTargetAudience(talkObj.getInt("target_audicence"));
+            }
+            if(talkObj.has("prerequisites")) {
+                talk.setPrerequisites(talkObj.getString("prerequisites"));
+            }
+            if(talkObj.has("section")) {
+                talk.setSection(talkObj.getString("section"));
+            }
+            if(talkObj.has("author")) {
+                talk.setAuthor(talkObj.getString("author"));
+            }
+            if(talkObj.has("section")) {
+                talk.setSection(talkObj.getString("section"));
+            }
+            if(talkObj.has("start_time")) {
+                talk.setSection(talkObj.getString("start_time"));
+            }
+            if(talkObj.has("end_time")) {
+                talk.setAuthor(talkObj.getString("end_time"));
+            }
+        }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return talk;
+    }
 }

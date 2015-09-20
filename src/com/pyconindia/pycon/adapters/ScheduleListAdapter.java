@@ -1,15 +1,10 @@
 package com.pyconindia.pycon.adapters;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pyconindia.pycon.DetailsActivity;
+import com.pyconindia.pycon.R;
 import com.pyconindia.pycon.models.ScheduleItem;
 import com.pyconindia.pycon.models.Talk;
 import com.pyconindia.pycon.storage.ApplicationData;
 import com.pyconindia.pycon.utils.Alarm;
-import com.pyconindia.pycon.R;
 
 public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<ScheduleItem> {
 
@@ -120,7 +115,7 @@ public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<Sc
 
                 @Override
                 public void onClick(View v) {
-                    startDetailsActivity(talk.getTitle(), talk.getMarkdown(), talk.getType(), talk.getId(), talk.isFeedbackGiven());
+                    startDetailsActivity(talk);
                 }
             });
 
@@ -128,7 +123,7 @@ public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<Sc
 
                 @Override
                 public void onClick(View v) {
-                    startDetailsActivity(talk.getTitle(), talk.getMarkdown(), talk.getType(), talk.getId(), talk.isFeedbackGiven());
+                    startDetailsActivity(talk);
                 }
             });
 
@@ -138,17 +133,11 @@ public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<Sc
         }
 
         return v;
-
     }
 
-
-    private void startDetailsActivity(String title, String description, String type, int id, boolean feedbackGiven) {
+    private void startDetailsActivity(Talk talk) {
+        data.setCurrentTalk(talk);
         Intent intent = new Intent(context, DetailsActivity.class);
-        intent.putExtra("id", id);
-        intent.putExtra("title", title);
-        intent.putExtra("description", description);
-        intent.putExtra("type", type);
-        intent.putExtra("feedback", feedbackGiven);
         context.startActivity(intent);
     }
 

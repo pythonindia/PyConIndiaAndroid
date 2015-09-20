@@ -10,6 +10,15 @@ public class Talk implements Comparable<Talk> {
     private boolean feedbackGiven;
     private int id;
     private String markdown;
+    private String speakerInfo;
+    private String speakerLinks;
+    private String author;
+    private String section;
+    private String contentUrls;
+    private String prerequisites;
+    private int targetAudience;
+    private String startTime;
+    private String endTime;
 
     public Talk(int id, String title, String description, String type, int audiNo, boolean liked, boolean feedbackGiven) {
         this.id = id;
@@ -23,6 +32,14 @@ public class Talk implements Comparable<Talk> {
         this.liked = liked;
         this.feedbackGiven = feedbackGiven;
         this.type = type;
+        setAuthor("");
+        setSection("");
+        setContentUrls("");
+        setPrerequisites("");
+        setTargetAudience(-1);
+        setStartTime("");
+        setEndTime("");
+        setSpeakerInfo("");
     }
 
     public String getTitle() {
@@ -92,5 +109,77 @@ public class Talk implements Comparable<Talk> {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getSpeakerInfo() {
+        return speakerInfo;
+    }
+
+    public void setSpeakerInfo(String speakerInfo) {
+        this.speakerInfo = speakerInfo;
+    }
+
+    public String getSpeakerLinks() {
+        return speakerLinks;
+    }
+
+    public void setSpeakerLinks(String speakerLinks) {
+        this.speakerLinks = speakerLinks;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
+    }
+
+    public String getContentUrls() {
+        return contentUrls;
+    }
+
+    public void setContentUrls(String contentUrls) {
+        this.contentUrls = contentUrls;
+    }
+
+    public String getPrerequisites() {
+        return prerequisites;
+    }
+
+    public void setPrerequisites(String prerequisites) {
+        this.prerequisites = prerequisites;
+    }
+
+    public int getTargetAudience() {
+        return targetAudience;
+    }
+
+    public void setTargetAudience(int targetAudience) {
+        this.targetAudience = targetAudience;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }

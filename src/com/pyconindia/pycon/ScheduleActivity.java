@@ -187,6 +187,7 @@ public class ScheduleActivity extends BaseActivity {
                 for(int i = 0; i < scheduleListArr.length(); i++) {
 
                     JSONObject talkObj = scheduleListArr.getJSONObject(i);
+                    JSONObject sessionObj = talkObj.getJSONObject("session");
                     name = talkObj.getString("name");
                     startTime = talkObj.getString("start_time");
                     endTime = talkObj.getString("end_time");
@@ -202,10 +203,32 @@ public class ScheduleActivity extends BaseActivity {
                     talkId = talkObj.getInt("id");
                     like = likes.has(""+talkId) ? likes.getBoolean(""+talkId) : false;
                     feedback = feedbackObj.has(""+talkId) ? feedbackObj.getBoolean(""+talkId) : false;
-                    description = talkObj.getJSONObject("session").getString("description");
+                    description = sessionObj.getString("description");
                     roomId = talkObj.getInt("room_id");
                     type = talkObj.getString("type");
                     Talk talk = new Talk(talkId, name.toUpperCase(), description, type, roomId, like, feedback);
+
+                    if(sessionObj.has("content_urls")) {
+                        talk.setContentUrls(sessionObj.getString("content_urls"));
+                    }
+                    if(sessionObj.has("speaker_info")) {
+                        talk.setSpeakerInfo(sessionObj.getString("speaker_info"));
+                    }
+                    if(sessionObj.has("target_audience")) {
+                        talk.setTargetAudience(sessionObj.getInt("target_audience"));
+                    }
+                    if(sessionObj.has("prerequisites")) {
+                        talk.setPrerequisites(sessionObj.getString("prerequisites"));
+                    }
+                    if(sessionObj.has("section")) {
+                        talk.setSection(sessionObj.getString("section"));
+                    }
+                    if(sessionObj.has("author")) {
+                        talk.setAuthor(sessionObj.getString("author"));
+                    }
+                    if(sessionObj.has("section")) {
+                        talk.setSection(sessionObj.getString("section"));
+                    }
                     talkList.add(talk);
                 }
                 Collections.sort(talkList);
