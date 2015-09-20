@@ -47,8 +47,8 @@ public class Alarm {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault());
 
         try {
-            Date date = sdf.parse("2015-09-19 07:10 pm");
-//            Date date = sdf.parse(dateTime);
+//            Date date = sdf.parse("2015-09-19 07:10 pm");
+            Date date = sdf.parse(dateTime);
 //            Log.d("abhishek", ""+date.getTime());
             if(date.getTime() > System.currentTimeMillis()) {
 //                Log.d("abhishek", ""+(date.getTime() - FIVE_MINUTES));

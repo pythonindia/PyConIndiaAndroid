@@ -135,6 +135,7 @@ public class ApplicationData {
             obj.put("markdown", talk.getMarkdown());
             obj.put("id", talk.getId());
             obj.put("room_id", talk.getAudiNo());
+            obj.put("event_date", talk.getEventDate());
             if(talk.getAuthor() != "") {
                 obj.put("author", talk.getAuthor());
             }
@@ -173,7 +174,7 @@ public class ApplicationData {
         try {
         JSONObject talkObj = getJSONObjectFromKey(CURRENT_TALK);
         if(talkObj.has("title")) {
-            String startTime = "", endTime = "", name, markdown, type, eventDate = "";
+            String name, markdown, type, eventDate = "";
             int roomId, talkId;
             boolean like = false, feedback = false;
             talkId = talkObj.getInt("id");
@@ -181,7 +182,8 @@ public class ApplicationData {
             roomId = talkObj.getInt("room_id");
             type = talkObj.getString("type");
             name = talkObj.getString("title");
-            talk = new Talk(talkId, name, markdown, type, roomId, like, feedback);
+            eventDate = talkObj.getString("event_date");
+            talk = new Talk(talkId, name, markdown, type, eventDate, roomId, like, feedback);
 
             if(talkObj.has("content_urls")) {
                 talk.setContentUrls(talkObj.getString("content_urls"));
@@ -190,7 +192,7 @@ public class ApplicationData {
                 talk.setSpeakerInfo(talkObj.getString("speaker_info"));
             }
             if(talkObj.has("target_audience")) {
-                talk.setTargetAudience(talkObj.getInt("target_audicence"));
+                talk.setTargetAudience(talkObj.getInt("target_audience"));
             }
             if(talkObj.has("prerequisites")) {
                 talk.setPrerequisites(talkObj.getString("prerequisites"));
@@ -205,10 +207,10 @@ public class ApplicationData {
                 talk.setSection(talkObj.getString("section"));
             }
             if(talkObj.has("start_time")) {
-                talk.setSection(talkObj.getString("start_time"));
+                talk.setStartTime(talkObj.getString("start_time"));
             }
             if(talkObj.has("end_time")) {
-                talk.setAuthor(talkObj.getString("end_time"));
+                talk.setEndTime(talkObj.getString("end_time"));
             }
         }
         } catch(Exception e) {

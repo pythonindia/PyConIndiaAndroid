@@ -16,8 +16,6 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,9 +38,7 @@ public class ScheduleActivity extends BaseActivity {
     private Api api;
     private ViewPager mViewPager;
     private SlidingTabLayout mSlidingTabLayout;
-    private ListView scheduleListView;
     private ArrayList<ScheduleItem> scheduleList;
-    private ScheduleListAdapter<ScheduleItem> adapter;
     private ProgressDialog progress;
 
     public static final String[] DAY = {
@@ -206,7 +202,7 @@ public class ScheduleActivity extends BaseActivity {
                     description = sessionObj.getString("description");
                     roomId = talkObj.getInt("room_id");
                     type = talkObj.getString("type");
-                    Talk talk = new Talk(talkId, name.toUpperCase(), description, type, roomId, like, feedback);
+                    Talk talk = new Talk(talkId, name.toUpperCase(), description, type, eventDate, roomId, like, feedback);
 
                     if(sessionObj.has("content_urls")) {
                         talk.setContentUrls(sessionObj.getString("content_urls"));
@@ -228,6 +224,12 @@ public class ScheduleActivity extends BaseActivity {
                     }
                     if(sessionObj.has("section")) {
                         talk.setSection(sessionObj.getString("section"));
+                    }
+                    if(talkObj.has("start_time")) {
+                        talk.setStartTime(startTime);
+                    }
+                    if(talkObj.has("end_time")) {
+                        talk.setEndTime(endTime);
                     }
                     talkList.add(talk);
                 }

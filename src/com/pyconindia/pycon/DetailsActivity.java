@@ -1,17 +1,22 @@
 package com.pyconindia.pycon;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import org.markdown4j.Markdown4jProcessor;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.pyconindia.pycon.http.Api;
 import com.pyconindia.pycon.models.Talk;
@@ -20,15 +25,11 @@ import com.pyconindia.pycon.storage.ApplicationData;
 public class DetailsActivity extends BaseActivity {
 
     private ApplicationData data;
-//    private String title;
-//    private String description;
     private WebView webview;
     private ImageButton feedbackBtn;
     private String type;
-//    private int id;
-    private boolean feedback;
-    private boolean feedbackEnabled;
     private Talk talk;
+    private static final long SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,31 +43,37 @@ public class DetailsActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         data = new ApplicationData(this);
 
-//        Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-//            id = extras.getInt("id");
-//            title = extras.getString("title");
-//            description = extras.getString("description");
-//            type = extras.getString("type");
-//            feedback = extras.getBoolean("feedback");
-//        }
-
         feedbackBtn = (ImageButton) findViewById(R.id.feedback);
         feedbackBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                startFeedbackActivity();
+                if(isFeedbackEnabled()) {
+                    startFeedbackActivity();
+                } else {
+                    Toast.makeText(DetailsActivity.this, "Feedback can be given after session start", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-
-
-
     }
 
     private boolean isFeedbackEnabled() {
-        boolean enabled = false;
+        boolean enabled = true;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault());
+        try {
+            Date startDate = sdf.parse(talk.getEventDate() + " " + talk.getStartTime());
+            Date endDate = sdf.parse(talk.getEventDate() + " " + talk.getEndTime());
+            Date now = new Date();
+
+            if(now.getTime() < startDate.getTime()) {
+                enabled = false;
+            }
+            if(now.getTime() > SEVEN_DAYS + endDate.getTime()) {
+                enabled = false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace(); // Big Trouble!!
+        }
         return enabled;
     }
 
@@ -134,6 +141,12 @@ public class DetailsActivity extends BaseActivity {
             } else {
                 feedbackBtn.setVisibility(View.GONE);
             }
+            if(!isFeedbackEnabled()) {
+                feedbackBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_gray));
+            } else {
+                feedbackBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
+            }
+
             String markdownSource = generateDetailMarkdown();
             String data;
             try {
@@ -142,6 +155,7 @@ public class DetailsActivity extends BaseActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
     }
 

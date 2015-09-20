@@ -19,8 +19,9 @@ public class Talk implements Comparable<Talk> {
     private int targetAudience;
     private String startTime;
     private String endTime;
+    private String eventDate;
 
-    public Talk(int id, String title, String description, String type, int audiNo, boolean liked, boolean feedbackGiven) {
+    public Talk(int id, String title, String description, String type, String eventDate, int audiNo, boolean liked, boolean feedbackGiven) {
         this.id = id;
         this.title = title;
         this.markdown = description;
@@ -32,6 +33,7 @@ public class Talk implements Comparable<Talk> {
         this.liked = liked;
         this.feedbackGiven = feedbackGiven;
         this.type = type;
+        this.setEventDate(eventDate);
         setAuthor("");
         setSection("");
         setContentUrls("");
@@ -181,5 +183,13 @@ public class Talk implements Comparable<Talk> {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
     }
 }
