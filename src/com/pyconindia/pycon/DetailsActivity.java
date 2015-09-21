@@ -30,6 +30,7 @@ public class DetailsActivity extends BaseActivity {
     private String type;
     private Talk talk;
     private static final long SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+    private static final String[] TARGET_AUDIENCE = {"Beginner", "Intermediate", "Advanced"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,8 +117,8 @@ public class DetailsActivity extends BaseActivity {
         if(talk.getType() != "") {
             markdownSource += "### Type: "+ newline +talk.getType() + newline + newline;
         }
-        if(talk.getTargetAudience() != -1) {
-            markdownSource += "### Target Audience: "+ newline +talk.getTargetAudience() + newline + newline;
+        if(talk.getTargetAudience() > 0 && talk.getTargetAudience() < 4) {
+            markdownSource += "### Target Audience: "+ newline +TARGET_AUDIENCE[talk.getTargetAudience()-1] + newline + newline;
         }
         if(talk.getContentUrls() != "") {
             markdownSource += "### Content Urls: "+ newline +talk.getContentUrls() + newline + newline;
