@@ -52,7 +52,7 @@ public class DetailsActivity extends BaseActivity {
                 if(isFeedbackEnabled()) {
                     startFeedbackActivity();
                 } else {
-                    Toast.makeText(DetailsActivity.this, "Feedback can be given after session start", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailsActivity.this, "Feedback can be given after session starts", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -104,6 +104,9 @@ public class DetailsActivity extends BaseActivity {
         }
         if(talk.getSection() != "") {
             markdownSource += "###Section: "+ newline +talk.getSection() + newline + newline;
+        }
+        if(talk.getEventDate() != "") {
+            markdownSource += "###Event Date: "+ newline +talk.getEventDate() + newline + newline;
         }
         if(talk.getStartTime() != "") {
             markdownSource += "###Start Time: "+ newline +talk.getStartTime() + newline + newline;
