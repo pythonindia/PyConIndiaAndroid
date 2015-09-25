@@ -244,7 +244,7 @@ public class ScheduleActivity extends BaseActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        Collections.sort(scheduleList);
         return scheduleList;
     }
 
