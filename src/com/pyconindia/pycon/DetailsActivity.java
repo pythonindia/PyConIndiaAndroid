@@ -94,34 +94,34 @@ public class DetailsActivity extends BaseActivity {
 
     private String generateDetailMarkdown() {
         String newline = "\n\r";
-        String markdownSource = "##"+talk.getTitle() + newline + newline;
+        String markdownSource = "###"+talk.getTitle() + newline + newline;
 
-        if(talk.getAuthor() != "") {
-           markdownSource += "### Author: "+ newline +talk.getAuthor() + newline + newline;
+        if(talk.getAuthor().trim() != "") {
+           markdownSource += "<i><b>by: </b>"+ talk.getAuthor() + "</i>" + newline + newline;
         }
         if(talk.getSpeakerInfo() != "") {
-            markdownSource += "### Speaker Info: "+ newline +talk.getSpeakerInfo() + newline + newline;
+            markdownSource += "<i><b>Speaker Info: </b></i>" + newline + talk.getSpeakerInfo() + newline + newline;
         }
         if(talk.getSection() != "") {
-            markdownSource += "###Section: "+ newline +talk.getSection() + newline + newline;
+            markdownSource += "<i><b>Section: </b>"+ talk.getSection() + "</i>" + newline + newline;
         }
         if(talk.getEventDate() != "") {
-            markdownSource += "###Event Date: "+ newline +talk.getEventDate() + newline + newline;
+            markdownSource += "<i><b>Event Date: </b>"+ talk.getEventDate() + "</i>" + newline + newline;
         }
         if(talk.getStartTime() != "") {
-            markdownSource += "###Start Time: "+ newline +talk.getStartTime() + newline + newline;
+            markdownSource += "<i><b>Start Time: </b>" +talk.getStartTime() + "</i>" + newline + newline;
         }
         if(talk.getEndTime() != "") {
-            markdownSource += "### End Time: "+ newline +talk.getEndTime() + newline + newline;
+            markdownSource += "<i><b>End Time: </b>" +talk.getEndTime() + newline + newline;
         }
         if(talk.getPrerequisites() != "") {
-            markdownSource += "### Prerequisites: "+ newline +talk.getPrerequisites() + newline + newline;
+            markdownSource += "<i><b> Prerequisites: </b>" + "</i>"+ newline +talk.getPrerequisites() + newline + newline;
         }
         if(talk.getType() != "") {
-            markdownSource += "### Type: "+ newline +talk.getType() + newline + newline;
+            markdownSource += "<i><b> Type: </b>" +talk.getType() + "</i>" + newline + newline;
         }
         if(talk.getTargetAudience() > 0 && talk.getTargetAudience() < 4) {
-            markdownSource += "### Target Audience: "+ newline +TARGET_AUDIENCE[talk.getTargetAudience()-1] + newline + newline;
+            markdownSource += "<i><b> Target Audience: </b>" +TARGET_AUDIENCE[talk.getTargetAudience()-1] + "</i>" + newline + newline;
         }
         if(talk.getContentUrls() != "") {
             markdownSource += "### Content Urls: "+ newline +talk.getContentUrls() + newline + newline;

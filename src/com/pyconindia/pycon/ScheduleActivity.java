@@ -128,6 +128,7 @@ public class ScheduleActivity extends BaseActivity {
 
            case R.id.refresh:
                progress.show();
+               ((BaseApplication) this.getApplication()).setPageNumber(mViewPager.getCurrentItem());
                api.getSchedulesList();
                break;
                default:
@@ -208,7 +209,7 @@ public class ScheduleActivity extends BaseActivity {
                         talk.setContentUrls(sessionObj.getString("content_urls"));
                     }
                     if(sessionObj.has("speaker_info")) {
-                        talk.setSpeakerInfo(sessionObj.getString("speaker_info"));
+                        talk.setSpeakerInfo(sessionObj.getString("speaker_info").trim());
                     }
                     if(sessionObj.has("target_audience")) {
                         talk.setTargetAudience(sessionObj.getInt("target_audience"));

@@ -136,9 +136,11 @@ public class ScheduleListAdapter<T extends ScheduleItem> extends ArrayAdapter<Sc
     }
 
     private void startDetailsActivity(Talk talk) {
-        data.setCurrentTalk(talk);
-        Intent intent = new Intent(context, DetailsActivity.class);
-        context.startActivity(intent);
+        if(!talk.getDescription().equals("")) {
+            data.setCurrentTalk(talk);
+            Intent intent = new Intent(context, DetailsActivity.class);
+            context.startActivity(intent);
+        }
     }
 
 }
