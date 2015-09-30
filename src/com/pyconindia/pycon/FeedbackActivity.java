@@ -45,7 +45,7 @@ public class FeedbackActivity extends BaseActivity {
     private Api api;
     private ProgressDialog progress;
     private HashMap<Integer, EditText> textMap = new HashMap<Integer, EditText>();
-    private HashMap<Integer, RadioButton> radioMap = new HashMap<Integer, RadioButton>();
+    private HashMap<Integer, PRadioButton> radioMap = new HashMap<Integer, PRadioButton>();
     private FeedbackQuestionList list;
     private static final String TAG = "FeedbackActivity";
 
@@ -83,15 +83,16 @@ public class FeedbackActivity extends BaseActivity {
                 RadioGroup group = new RadioGroup(this);
                 group.setId(i);
                 for(FeedbackChoice choice : question.getChoices()) {
-                    final PRadioButton b = new PRadioButton(this, choice.getId(), choice.getValue(), question.getId());
+                    final PRadioButton b = new PRadioButton(this, choice.getId(), choice.getValue(), question.getId(), "group"+i);
                     b.setTextColor(getResources().getColor(android.R.color.black));
                     b.setText(choice.getTitle());
                     b.setOnClickListener(new OnClickListener() {
 
                         @Override
                         public void onClick(View v) {
-                            clearRadio();
+                            clearRadio(b.getGroup());
                             radioMap.put(b.getQuestionId(), b);
+                            b.setChecked(true);
                         }
                     });
                     group.addView(b);
@@ -141,9 +142,9 @@ public class FeedbackActivity extends BaseActivity {
                             }
                         }
 
-                        Iterator<Entry<Integer, RadioButton>>  it2 = radioMap.entrySet().iterator();
+                        Iterator<Entry<Integer, PRadioButton>>  it2 = radioMap.entrySet().iterator();
                         while (it2.hasNext()) {
-                            Map.Entry<Integer, RadioButton> pair = it2.next();
+                            Map.Entry<Integer, PRadioButton> pair = it2.next();
 
                             JSONObject textObj = new JSONObject();
                             textObj.put("id", pair.getKey());
@@ -166,12 +167,13 @@ public class FeedbackActivity extends BaseActivity {
         });
     }
 
-    private void clearRadio() {
-        Iterator<Entry<Integer, RadioButton>>  it2 = radioMap.entrySet().iterator();
+    private void clearRadio(String group) {
+        Iterator<Entry<Integer, PRadioButton>>  it2 = radioMap.entrySet().iterator();
         while (it2.hasNext()) {
-            Map.Entry<Integer, RadioButton> pair = it2.next();
-
-            pair.getValue().setChecked(false);
+            Map.Entry<Integer, PRadioButton> pair = it2.next();
+            if(pair.getValue().getGroup().equals(group)) {
+                pair.getValue().setChecked(false);
+            }
         }
     }
 
