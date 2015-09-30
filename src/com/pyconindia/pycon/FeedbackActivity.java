@@ -22,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,7 +45,7 @@ public class FeedbackActivity extends BaseActivity {
     private Api api;
     private ProgressDialog progress;
     private HashMap<Integer, EditText> textMap = new HashMap<Integer, EditText>();
-    private HashMap<Integer, Integer> radioMap = new HashMap<Integer, Integer>();
+    private HashMap<Integer, RadioButton> radioMap = new HashMap<Integer, RadioButton>();
     private FeedbackQuestionList list;
     private static final String TAG = "FeedbackActivity";
 
@@ -70,6 +71,7 @@ public class FeedbackActivity extends BaseActivity {
             id = extras.getInt("id");
             JSONObject feedbackObj = data.getFeedbackQuestions();
             list = new FeedbackQuestionList(type, feedbackObj);
+            int i = 0;
             for(ChoiceQuestion question : list.getChoiceQuestions()) {
                 LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View v = inflater.inflate(R.layout.feedback_choice, null);
@@ -79,6 +81,7 @@ public class FeedbackActivity extends BaseActivity {
                 titleText += question.isRequired() ? " *" : "";
                 title.setText(titleText);
                 RadioGroup group = new RadioGroup(this);
+                group.setId(i);
                 for(FeedbackChoice choice : question.getChoices()) {
                     final PRadioButton b = new PRadioButton(this, choice.getId(), choice.getValue(), question.getId());
                     b.setTextColor(getResources().getColor(android.R.color.black));
@@ -87,13 +90,15 @@ public class FeedbackActivity extends BaseActivity {
 
                         @Override
                         public void onClick(View v) {
-                            radioMap.put(b.getQuestionId(), b.getId());
+                            clearRadio();
+                            radioMap.put(b.getQuestionId(), b);
                         }
                     });
                     group.addView(b);
                 }
                 choicesLayout.addView(group);
                 questionsLayout.addView(v);
+                i++;
             }
             float scale = getResources().getDisplayMetrics().density;
             int pixels = (int) (150 * scale + 0.5f);
@@ -136,13 +141,13 @@ public class FeedbackActivity extends BaseActivity {
                             }
                         }
 
-                        Iterator<Entry<Integer, Integer>>  it2 = radioMap.entrySet().iterator();
+                        Iterator<Entry<Integer, RadioButton>>  it2 = radioMap.entrySet().iterator();
                         while (it2.hasNext()) {
-                            Map.Entry<Integer, Integer> pair = it2.next();
+                            Map.Entry<Integer, RadioButton> pair = it2.next();
 
                             JSONObject textObj = new JSONObject();
                             textObj.put("id", pair.getKey());
-                            textObj.put("value_id", pair.getValue());
+                            textObj.put("value_id", pair.getValue().getId());
                             choiceArr.put(textObj);
                         }
 
@@ -161,12 +166,21 @@ public class FeedbackActivity extends BaseActivity {
         });
     }
 
+    private void clearRadio() {
+        Iterator<Entry<Integer, RadioButton>>  it2 = radioMap.entrySet().iterator();
+        while (it2.hasNext()) {
+            Map.Entry<Integer, RadioButton> pair = it2.next();
+
+            pair.getValue().setChecked(false);
+        }
+    }
+
     private boolean validate() {
         boolean pass = true;
         for(ChoiceQuestion question : list.getChoiceQuestions()) {
             if(question.isRequired()) {
                 if(radioMap.containsKey(question.getId())) {
-                    int id = radioMap.get(question.getId());
+                    int id = radioMap.get(question.getId()).getId();
                     if(id == -1) {
                         Toast.makeText(this, "Choice Question is compulsary to answer.", Toast.LENGTH_SHORT).show();
                         pass = false;
