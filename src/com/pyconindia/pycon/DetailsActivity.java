@@ -49,11 +49,11 @@ public class DetailsActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-//                if(isFeedbackEnabled()) {
+                if(isFeedbackEnabled()) {
                     startFeedbackActivity();
-//                } else {
-//                    Toast.makeText(DetailsActivity.this, "Feedback can be given after session starts", Toast.LENGTH_SHORT).show();
-//                }
+                } else {
+                    Toast.makeText(DetailsActivity.this, "Feedback can be given after session starts", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
